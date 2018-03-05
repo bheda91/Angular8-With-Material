@@ -1,0 +1,8 @@
+{
+    "guitype": "Employee",
+    "host": "192.168.6.44/popapi/",
+    "company-name": "MIL",
+    "version": "1.0.0",
+    "title": "MIL Club Employee",
+    "system": "Club"
+}

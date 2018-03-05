@@ -1,0 +1,22 @@
+<div class="main-container">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row class="max-width">
+      <a mat-icon-button routerLink="/home">
+        <mat-icon aria-label="Home menu">home</mat-icon>
+      </a>
+      <a *ngFor="let menu of menus" color="basic" mat-button routerLink="/home/{{menu.hrefProp}}">{{menu.name}}</a>
+      <span class="spacer"></span>
+      <a color="accent" mat-icon-button class="large" routerLink="/home/changePassword">
+        <mat-icon aria-label="Change Password">vpn_key</mat-icon>
+      </a>
+      <button mat-icon-button color="warn" class="large" (click)="logoutClick()">
+        <mat-icon aria-label="Logout">power_settings_new</mat-icon>
+      </button>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <div class="main-container-wrapper" [@routeAnimation]="currentURLMenuName" [ngStyle]="iPhoneStyle">
+    <div class="container-inner-wrapper max-width">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<div *ngIf="showLoader; else showContent" class="loader loader-1">
+  <div class="loader-outter"></div>
+  <div class="loader-inner"></div>
+</div>
+<ng-template #showContent>
+  <div class="full-height flexbox-parent">
+    <form (ngSubmit)="onSubmit()">
+      <mat-card class="login-card">
+        <mat-card-header>
+          <h2 class="primary-title">Welcome to MIL CLub</h2>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Username" name="username" [(ngModel)]="username" [formControl]="userNameFormControl" [errorStateMatcher]="userNameMatcher">
+            <mat-error *ngIf="userNameFormControl.hasError('required')">
+              Username is
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <input matInput type="password" placeholder="Password" name="password" [(ngModel)]="password" [formControl]="passwordFormControl"
+              [errorStateMatcher]="passwordMatcher">
+            <mat-error *ngIf="passwordFormControl.hasError('required')">
+              Password is
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <div class="message-wrapper">
+            <mat-error>{{loginError}}</mat-error>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <div class="flexbox-parent-end">
+            <button mat-raised-button type="submit" color="primary" [disabled]="isDisabled">Login</button>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </div>
+</ng-template>
