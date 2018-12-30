@@ -1,6 +1,6 @@
-# Angular 5 With Material
+# Angular 7.1 With Material
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.2.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.4.
 
 ## Development server
 
