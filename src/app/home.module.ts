@@ -1,6 +1,6 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { CdkTableModule } from '@angular/cdk/table';
 
@@ -100,7 +100,7 @@ import { HomeRouterModule } from './router/home-router';
         CommonModule,
         FormsModule,
         HomeRouterModule,
-        HttpModule,
+        HttpClientModule,
         NgxDatatableModule
     ],
     declarations: [

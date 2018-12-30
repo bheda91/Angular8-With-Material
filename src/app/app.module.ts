@@ -3,7 +3,7 @@ import { APP_INITIALIZER } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { Title } from '@angular/platform-browser';
 import { CdkTableModule } from '@angular/cdk/table';
@@ -109,7 +109,7 @@ export function initConfig(config: AppConfig) {
     BrowserModule,
     CommonModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     ReactiveFormsModule
   ],
   providers: [

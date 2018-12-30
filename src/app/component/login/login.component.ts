@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
     this.loginError = '';
     this.loginSuccess = '';
     setTimeout(() => {
-      if (this.username === 'ravi.bheda' && this.password === 'ravi.bheda') {
+      if (this.username === 'bheda91' && this.password === 'password') {
         this.loginSuccess = 'Login successful';
         localStorage.setItem(this.sessionKey, this.makeid(32));
         this.config.setAuthenticateData({ authenticate: true });

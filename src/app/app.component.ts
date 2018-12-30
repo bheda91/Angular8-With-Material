@@ -29,12 +29,12 @@ export class AppComponent {
     private globalConfig: AppConfig
   ) {
     // Get company name from config
-    this.companyInfo.name = this.globalConfig.getConfig('company-name') || 'MIL';
-    this.companyInfo.system = this.globalConfig.getConfig('system') || 'Club';
+    this.companyInfo.name = this.globalConfig.getConfig('company-name') || 'Angular';
+    this.companyInfo.system = this.globalConfig.getConfig('system') || '7';
     this.guiType = this.globalConfig.getConfig('guitype');
     this.sessionKey = this.config.getSessionKeyName();
 
-    let titleSuffix = this.globalConfig.getConfig('title') || 'MIL Club';
+    let titleSuffix = this.globalConfig.getConfig('title') || 'Angular7';
     this.setTitle(`${titleSuffix}`);
     this.config.setCompanyInfo(this.companyInfo);
 

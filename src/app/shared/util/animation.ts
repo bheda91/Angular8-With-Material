@@ -1,6 +1,5 @@
 // import the required animation functions from the angular animations module
 import { trigger, state, animate, transition, style, query, keyframes } from '@angular/animations';
-import { concat } from 'rxjs/operator/concat';
 
 export const fadeInOutAnimation =
     // trigger name for attaching this animation to an element using the [@triggerName] syntax

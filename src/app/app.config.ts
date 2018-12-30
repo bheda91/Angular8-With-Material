@@ -1,13 +1,13 @@
-import { Inject, Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable()
 export class AppConfig {
 
     private config: Object = {};
 
-    constructor(private http: Http) {
+    constructor(private http: HttpClient) {
 
     }
 
@@ -27,14 +27,16 @@ export class AppConfig {
             // Generally browser ignore the text after "?", but when this request change it will ask server to get new file
             // So, after build, we need new config.json file.
             // Increase version of config, before building pop gui
-            this.http.get('config.json?v1').map(res => res.json()).catch((error: any): any => {
-                console.log('Configuration file could not be read');
-                resolve(true);
-                return Observable.throw(error || 'Server error');
-            }).subscribe((configResponse) => {
-                this.config = configResponse;
-                resolve(true);
-            });
+            this.http.get('config.json?v1').subscribe(
+                (data: any) => {
+                    this.config = data;
+                    resolve(true);
+                },
+                error => {
+                    console.log('Configuration file could not be read');
+                    resolve(true);
+                    return throwError(error || 'Server error');
+                });
         });
     }
 }
