@@ -7,7 +7,7 @@ import { ConfigService } from './shared/service/config.service';
 import { HttpService } from './shared/service/http.service';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-root-123',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   animations: [fadeInOutAnimation]
