@@ -1,13 +1,11 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 
+import { ChangePasswordComponent } from '../component/change-password/change-password.component';
 import { DashboardComponent } from '../component/dashboard/dashboard.component';
 import { HomeComponent } from '../component/home/home.component';
 import { NotFoundComponent } from '../component/not-found/not-found.component';
-import { ChangePasswordComponent } from '../component/change-password/change-password.component';
-import { CanLoadModuleService } from '../shared/service/can-load-module.service';
 
-const popHomeRoutes: Routes = [
+export const HOME_ROUTES: Routes = [
     {
         path: '',
         component: HomeComponent,
@@ -17,9 +15,10 @@ const popHomeRoutes: Routes = [
                 component: DashboardComponent
             },
             {
+                // The canLoadModule guard is not attached here. It only lets a route through once a
+                // current menu is set, and nothing sets one yet. Add `canMatch: [canLoadModule]` when it does.
                 path: 'changePassword',
-                component: ChangePasswordComponent,
-                canLoad: [CanLoadModuleService]
+                component: ChangePasswordComponent
             },
             {
                 path: '**',
@@ -28,10 +27,3 @@ const popHomeRoutes: Routes = [
         ]
     }
 ];
-
-@NgModule({
-    imports: [RouterModule.forChild(popHomeRoutes)],
-    exports: [RouterModule]
-})
-
-export class HomeRouterModule { }

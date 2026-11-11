@@ -1,28 +1,24 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpRequest, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { AppConfig } from './app-config.service';
 import { ConfigService } from './config.service';
-import { AppConfig } from '../../app.config';
 
-import * as _ from 'underscore';
-
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class HttpService {
+  private config = inject(ConfigService);
+  private http = inject(HttpClient);
+  private globalConfig = inject(AppConfig);
+
   public REST_SERVER_IP = this.globalConfig.getConfig('host');
-  private PURE_SERVER_ROOT = '';
+  private PURE_SERVER_ROOT = `${location.protocol}//${this.REST_SERVER_IP}srvz/`;
   public V1_URLS = {
     AUTHSRVICE: 'authdata'
-  }
+  };
 
-  constructor(
-    private config: ConfigService,
-    private http: HttpClient,
-    private globalConfig: AppConfig
-  ) {
-    this.PURE_SERVER_ROOT = `${location.protocol}//${this.REST_SERVER_IP}srvz/`;
-
-    for (let key in this.V1_URLS) {
+  constructor() {
+    for (const key in this.V1_URLS) {
       this.V1_URLS[key] = this.PURE_SERVER_ROOT + this.V1_URLS[key];
     }
   }
@@ -35,7 +31,8 @@ export class HttpService {
       );
   }
 
-  private handleError(error: HttpErrorResponse) {
+  // Arrow function, so `this` still points at the service when RxJS calls it
+  private handleError = (error: HttpErrorResponse) => {
     // We found unauthenticate problem... just reload the page...
     if (error && (error.status === 403 || error.status === 401 || error.status === 0)) {
       this.config.logoutApp();
@@ -52,7 +49,6 @@ export class HttpService {
         `body was: ${error.error}`);
     }
     // return an observable with a user-facing error message
-    return throwError(
-      'Something bad happened; please try again later.');
+    return throwError(() => 'Something bad happened; please try again later.');
   };
 }

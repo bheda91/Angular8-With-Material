@@ -1,36 +1,42 @@
-<div *ngIf="showLoader; else showContent" class="loader loader-1">
-  <div class="loader-outter"></div>
-  <div class="loader-inner"></div>
-</div>
-<ng-template #showContent>
+@if (showLoader) {
+  <div class="loader loader-1">
+    <div class="loader-outter"></div>
+    <div class="loader-inner"></div>
+  </div>
+} @else {
   <div class="full-height flexbox-parent">
-    <form (ngSubmit)="onSubmit()">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <mat-card class="login-card">
         <mat-card-header>
-          <h2 class="primary-title">Welcome to Angular7</h2>
+          <h2 class="primary-title">Welcome to Angular 21</h2>
         </mat-card-header>
         <mat-card-content>
           <mat-form-field class="full-width">
-            <input matInput placeholder="Username" name="username" [(ngModel)]="username" [formControl]="userNameFormControl" [errorStateMatcher]="userNameMatcher">
-            <mat-error *ngIf="userNameFormControl.hasError('required')">
-              Username is
-              <strong>required</strong>
-            </mat-error>
+            <mat-label>Username</mat-label>
+            <input matInput name="username" formControlName="username" [errorStateMatcher]="userNameMatcher">
+            @if (loginForm.controls.username.hasError('required')) {
+              <mat-error>
+                Username is
+                <strong>required</strong>
+              </mat-error>
+            }
           </mat-form-field>
 
           <mat-form-field class="full-width">
-            <input matInput type="password" placeholder="Password" name="password" [(ngModel)]="password" [formControl]="passwordFormControl"
-              [errorStateMatcher]="passwordMatcher">
-            <mat-error *ngIf="passwordFormControl.hasError('required')">
-              Password is
-              <strong>required</strong>
-            </mat-error>
+            <mat-label>Password</mat-label>
+            <input matInput type="password" name="password" formControlName="password" [errorStateMatcher]="passwordMatcher">
+            @if (loginForm.controls.password.hasError('required')) {
+              <mat-error>
+                Password is
+                <strong>required</strong>
+              </mat-error>
+            }
           </mat-form-field>
           <div class="message-wrapper">
             <mat-error>{{loginError}}</mat-error>
           </div>
         </mat-card-content>
-        <mat-card-actions>
+        <mat-card-actions align="end">
           <div class="flexbox-parent-end">
             <button mat-raised-button type="submit" color="primary" [disabled]="isDisabled">Login</button>
           </div>
@@ -38,4 +44,4 @@
       </mat-card>
     </form>
   </div>
-</ng-template>
+}

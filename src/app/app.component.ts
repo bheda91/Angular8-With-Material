@@ -1,45 +1,46 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { RouterOutlet } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { fadeInOutAnimation } from './shared/util/animation';
 
-import { AppConfig } from './app.config';
+import { AppConfig } from './shared/service/app-config.service';
 import { ConfigService } from './shared/service/config.service';
-import { HttpService } from './shared/service/http.service';
 
 @Component({
   selector: 'app-root',
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  styleUrl: './app.component.scss',
   animations: [fadeInOutAnimation]
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
+  private config = inject(ConfigService);
+  private titleService = inject(Title);
+  private globalConfig = inject(AppConfig);
+
   companyInfo = {
     name: '',
     system: ''
   };
-  guiType: string = 'Admin';
-  logoutSub: any = null;
-  sessionKey: any = null;
-  showLoader: boolean = false;
+  guiType = 'Admin';
+  logoutSub: Subscription | null = null;
+  sessionKey: string | null = null;
+  showLoader = false;
 
-  constructor(
-    private config: ConfigService,
-    private http: HttpService,
-    private titleService: Title,
-    private globalConfig: AppConfig
-  ) {
+  constructor() {
     // Get company name from config
     this.companyInfo.name = this.globalConfig.getConfig('company-name') || 'Angular';
-    this.companyInfo.system = this.globalConfig.getConfig('system') || '7';
+    this.companyInfo.system = this.globalConfig.getConfig('system') || '21';
     this.guiType = this.globalConfig.getConfig('guitype');
     this.sessionKey = this.config.getSessionKeyName();
 
-    let titleSuffix = this.globalConfig.getConfig('title') || 'Angular7';
+    const titleSuffix = this.globalConfig.getConfig('title') || 'Angular21';
     this.setTitle(`${titleSuffix}`);
     this.config.setCompanyInfo(this.companyInfo);
 
     this.logoutSub = this.config.logoutApp$.subscribe(
-      isLogout => {
+      () => {
         setTimeout(() => {
           location.reload();
         }, 2000);
@@ -51,13 +52,13 @@ export class AppComponent {
   }
 
   getPageName() {
-    let href = location.pathname;
-    return href.substr(href.lastIndexOf('/') + 1);
+    const href = location.pathname;
+    return href.substring(href.lastIndexOf('/') + 1);
   }
 
   ngOnInit() {
-    let localStorageKey = this.guiType === 'Admin' ? 'carem' : 'ccrem';
-    let rem = localStorage.getItem(localStorageKey);
+    const localStorageKey = this.guiType === 'Admin' ? 'carem' : 'ccrem';
+    const rem = localStorage.getItem(localStorageKey);
     if (localStorage.getItem(this.config.getSessionKeyName())) {
       this.config.setAuthenticateData({ authenticate: true });
     }
@@ -68,7 +69,7 @@ export class AppComponent {
   }
 
   ngOnDestroy() {
-    this.logoutSub.unsubscribe();
+    this.logoutSub?.unsubscribe();
     this.logoutSub = null;
   }
 }

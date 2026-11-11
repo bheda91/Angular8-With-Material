@@ -1,5 +1,4 @@
-// Import a pre-built theme
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+// The pre-built Material theme (deeppurple-amber) is included from angular.json
 
 /****************************** General **********************************************/
 
@@ -12,6 +11,7 @@ body {
     height: 100vh;
     overflow: hidden;
     margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 .main-router-outlet {
@@ -161,19 +161,13 @@ input:-webkit-autofill {
 
 $icon-large-container-size: 64px;
 $icon-large-size: 32px;
-.mat-icon-button.large {
-    width: $icon-large-container-size;
-    height: $icon-large-container-size;
-    line-height: $icon-large-container-size;
-    .mat-icon,
-    .mat-icon-button i {
-        line-height: $icon-large-size;
-    }
+.mat-mdc-icon-button.large {
+    --mat-icon-button-state-layer-size: #{$icon-large-container-size};
+    --mat-icon-button-icon-size: #{$icon-large-size};
     .mat-icon {
         width: $icon-large-size;
         height: $icon-large-size;
-    }
-    .material-icons {
         font-size: $icon-large-size;
+        line-height: $icon-large-size;
     }
 }

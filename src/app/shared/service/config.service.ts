@@ -1,32 +1,30 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Subject } from 'rxjs';
-import { AppConfig } from './../../app.config';
+import { AppConfig } from './app-config.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ConfigService {
+  private config = inject(AppConfig);
+
   private isGetAuthData = false;
   private authData = null;
   private currentMenu = null;
   private companyInfo = {};
 
 
-  private currentScreenName: string = '';
-  private screenName = new Subject<any>();
+  private currentScreenName = '';
+  private screenName = new Subject<string>();
   screenName$ = this.screenName.asObservable();
 
-  private logoutAppSub = new Subject<any>();
+  private logoutAppSub = new Subject<boolean>();
   logoutApp$ = this.logoutAppSub.asObservable();
 
-  private showLoading: number = 0;
+  private showLoading = 0;
   private loader = new Subject<boolean>();
   loader$ = this.loader.asObservable();
-  private loaderTimer: any = null;
+  private loaderTimer: ReturnType<typeof setTimeout> | null = null;
 
   private SESSION_KEY_NAME = 'club_auth_token_' + this.config.getConfig('guitype');
-
-  constructor(private config: AppConfig) {
-
-  }
 
   public setAuthenticateData(authData) {
     this.authData = authData;
@@ -90,7 +88,6 @@ export class ConfigService {
       sub.unsubscribe();
       this.hideLoader(count);
     }
-    sub = null;
   }
 
   public setCompanyInfo(companyInfo) {
