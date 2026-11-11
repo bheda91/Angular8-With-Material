@@ -20,7 +20,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `npm run build` to build the project. The build artifacts will be stored in the `dist/angular-7-with-material` directory.
+Run `npm run build` to build the project. The build artifacts will be stored in the `dist/angular-21-with-material` directory.
 Builds use the production configuration by default. Run `npm run watch` for a development build that rebuilds on change.
 
 ## Running unit tests

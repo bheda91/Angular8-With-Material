@@ -9,7 +9,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "angular-7-with-material": {
+    "angular-21-with-material": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -24,7 +24,7 @@
           "builder": "@angular/build:application",
           "options": {
             "outputPath": {
-              "base": "dist/angular-7-with-material",
+              "base": "dist/angular-21-with-material",
               "browser": ""
             },
             "index": "src/index.html",
@@ -78,10 +78,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "angular-7-with-material:build:production"
+              "buildTarget": "angular-21-with-material:build:production"
             },
             "development": {
-              "buildTarget": "angular-7-with-material:build:development"
+              "buildTarget": "angular-21-with-material:build:development"
             }
           },
           "defaultConfiguration": "development"
